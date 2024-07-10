@@ -102,11 +102,14 @@ export class AddNotizComponent implements OnInit {
   async change() {
     if(this.help()) {
       if (this.notiz) {
-        Object.assign(this.notiz, this.registerForm.value);
-        console.log(this.registerForm.get('text')?.value);
+        console.log(this.notiz.id)
+        //Object.assign(this.notiz, this.registerForm.value);
+        this.notiz.title = (this.registerForm.get('title')?.value == "" ? this.notiz.title : this.registerForm.get('title')?.value);
+        this.notiz.text = (this.registerForm.get('text')?.value == "" ? this.notiz.text : this.registerForm.get('text')?.value);
         this.notiz.modificationDate = moment().valueOf();
+        this.notiz.theme = await this.db.getThemeByDescription(this.registerForm.get('theme')?.value)
         await this.db.updateNote(this.notiz);
-        this.router.navigate(['notizen']);
+        this.router.navigate(['notizen/titel']);
       }
     } else
       this.register();
