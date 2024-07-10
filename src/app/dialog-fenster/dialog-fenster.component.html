@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Themeneingabe</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Themenbeschreibung</mat-label>
+    <input matInput #input value="{{data.theme}}">
+    <mat-error>Thema existiert bereits</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <!--<button mat-raised-button *ngIf="new" (click)="changeTheme(input.value)">Ändern</button> -->
+  <button mat-raised-button (click)="onNoClick()">Zurück</button>
+  <button mat-raised-button *ngIf="!data.theme" (click)="addTheme(input.value)">Hinzufügen</button>
+  <button mat-raised-button *ngIf="data" (click)="deleteTheme(input.value)"><mat-icon>delete</mat-icon></button>
+</div>

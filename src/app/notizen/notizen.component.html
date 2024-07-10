@@ -1,0 +1,59 @@
+<nav mat-tab-nav-bar backgroundColor="primary" color="accent">
+  <a
+    fxHide.lt-sm
+    mat-tab-link
+    routerLink="/notizen/titel"
+    routerLinkActive
+    #notizenTab="routerLinkActive"
+    [active]="notizenTab.isActive"
+  >
+    Notizen
+  </a>
+  <a
+    mat-tab-link
+    routerLink="/notizen/thema"
+    routerLinkActive
+    #themaTab="routerLinkActive"
+    [active]="themaTab.isActive"
+  >
+    Thema
+  </a>
+  <a
+    mat-tab-link
+    routerLink="/notizen/datum"
+    routerLinkActive
+    #datumTab="routerLinkActive"
+    [active]="datumTab.isActive"
+  >
+    Änderungsdatum
+  </a>
+
+</nav>
+
+
+<div>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let note of notizen">
+      <a routerLink="/addnotiz/{{ note.id }}">
+      <span>
+        <b>{{ note.title }} ({{ note.theme?.description }})</b>
+        Von: {{ note.user?.username }}
+        Erstellt: {{ note?.creationDate | date: "dd.MM.yyyy hh:mm:ss" }} Geändert: <span [ngSwitch]="this.note?.modificationDate">
+          <span *ngSwitchCase="0">Nicht definiert</span>
+          <span *ngSwitchDefault>{{
+            note?.modificationDate | date: "dd.MM.yyyy hh:mm:ss"
+          }}</span>
+        </span>
+        <br>
+        Text: {{ note.text }}
+      </span>
+      <mat-divider></mat-divider>
+    </a>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+  <button style="bottom: 25px; right: 25px; position: fixed;" mat-fab (click)="addNotiz()" color="warn" class="bet_time" aria-label="Example icon button with a home icon">
+    <mat-icon>add</mat-icon>
+  </button>
+

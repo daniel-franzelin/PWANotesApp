@@ -1,0 +1,49 @@
+<form fxLayout="row" style="width: 100%;" [formGroup]="registerForm" autocomplete="off">
+  <mat-form-field class="input-margin">
+    <input matInput class=" form-control" formControlName="title" placeholder="Titel" value="{{ notiz?.title }}"/>
+    <mat-error>Titel muss gegeben sein!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Thema</mat-label>
+    <mat-select
+      id="select"
+      matInput
+      class="input-margin"
+      formControlName="theme"
+      [(value)]="selected"
+    >
+      <mat-option
+        *ngFor="let theme of themes; index as i"
+        [value]="theme.description"
+        >{{ theme?.description }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <p matLine fxLayout.lt-sm="column" fxLayout.gt-xs="flex end">
+    <span fxFlex
+      >Erstellt:
+      {{ this.notiz?.creationDate | date: "dd.MM.yyyy hh:mm:ss" }}</span
+    >
+    <br>
+    <span fxFlex
+      >Geändert:
+      <span [ngSwitch]="this.notiz?.modificationDate">
+        <span *ngSwitchCase="0">Nicht definiert</span>
+        <span *ngSwitchDefault>{{
+          notiz?.modificationDate | date: "dd.MM.yyyy hh:mm:ss"
+        }}</span>
+      </span></span
+    >
+    <br />
+  </p>
+  <mat-form-field>
+    <input matInput class="input-margin" formControlName="text" placeholder="Text" value="{{ notiz?.text }}"/>
+    <mat-error>Text muss gegeben sein!</mat-error>
+  </mat-form-field>
+  <br />
+  <div fxLayout="row" class="buttondiv">
+    <button mat-raised-button type="button" fxFlex class="button btn-margin" (click)="change()"> {{ help() ? "Ändern" : "Hinzufügen" }}</button>
+    <button mat-raised-button type="button" fxFlex class="button btn-margin"(click)="back()">Zurück</button>
+    <button mat-raised-button type="button" fxFlex class="button btn-margin"(click)="deleteNote()">Löschen</button>
+  </div>
+</form>
