@@ -1,0 +1,6 @@
+.floating-button {
+  position: fixed;
+  bottom: 20px; /* Abstand vom unteren Rand der Seite */
+  right: 20px; /* Abstand vom rechten Rand der Seite */
+  z-index: 1000; /* Z-Index, um sicherzustellen, dass der Button über anderen Inhalten liegt */
+}
