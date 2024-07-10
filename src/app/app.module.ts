@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { AddNotizComponent } from './add-notiz/add-notiz.component';
 import { NotizenComponent } from './notizen/notizen.component';
 import { ThemenComponent } from './themen/themen.component';
 import { DialogFensterComponent } from './dialog-fenster/dialog-fenster.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,13 @@ import { DialogFensterComponent } from './dialog-fenster/dialog-fenster.componen
     MatInputModule,
     MatTabsModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
